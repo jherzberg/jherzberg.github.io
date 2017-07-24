@@ -5,7 +5,7 @@ Data from [kaggle](https://www.kaggle.com/mcdonalds/nutrition-facts).
 Python implementation of [Lloyd's algorithm](https://en.wikipedia.org/wiki/Lloyd%27s_algorithm).
 
 k_means.py functions are available [here](https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/k_means.py).
-    
+
     from k_means import *
 
     df = pd.DataFrame.from_csv('mcdonalds_menu.csv', header=0, index_col=0)
@@ -15,7 +15,7 @@ Plotting loss as a function of `k` clusters with `find_best_k(data, 20, 15)` sug
 
 
 ![Image of loss plot](https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/mcdondals_elbow_loss.png)
-    
+
     # RUNS THE ALGORITHM
     centroids = get_centroids(20, 7, data)
     closest = calc_closest(data, centroids)
@@ -38,7 +38,7 @@ Some results:
     McFlurry with Oreo Cookies (Snack)                  6.7 oz (190 g)       340   
     McFlurry with Reese's Peanut Butter Cups (Medium)  14.2 oz (403 g)       810   
     McFlurry with Reese's Peanut Butter Cups (Snack)    7.1 oz (202 g)       410   
-    
+
                                                        Protein  Centroid  
     Item                                                                  
     McFlurry with Oreo Cookies (Small)                      12         1  
@@ -50,3 +50,5 @@ Some results:
 T-SNE plot:
 
 ![image of t_sne plot](https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/mcdondalds_t_sne.png)
+
+### Josh Herzberg
