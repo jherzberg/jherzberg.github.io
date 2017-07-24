@@ -12,6 +12,7 @@ k_means.py functions are available [here](https://github.com/jherzberg/k_means_m
     data = df.as_matrix(columns = ['Calories', 'Total Fat', 'Saturated Fat', 'Trans Fat', 'Cholesterol', 'Sodium', 'Carbohydrates', 'Dietary Fiber', 'Sugars', 'Protein'])
 
 Plotting loss as a function of `k` clusters with `find_best_k(data, 20, 15)` suggests 7 clusters is optimal.
+
 ![Image of loss plot]
 (https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/mcdondals_elbow_loss.png)
     
@@ -28,6 +29,7 @@ Plotting loss as a function of `k` clusters with `find_best_k(data, 20, 15)` sug
     df['centroid'] = closest
 
 Some results: `df.tail()`.
+
                                                               Serving Size  Calories  \
     Item                                                                           
     McFlurry with Oreo Cookies (Small)                 10.1 oz (285 g)       510   
