@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>K-MEANS CLUTERING WITH MCDONALDS NUTRITION INFORMATION</title>
+	</head>
+	<body>
+		<h1>Intro</h1>
+		<p>Data from <a href = "https://www.kaggle.com/mcdonalds/nutrition-facts"
+    target = "_self">kaggle.com</a>. </p>
+		<p>Python implementation of <a href = "https://en.wikipedia.org/wiki/Lloyd%27s_algorithm"
+    target = "_self">Lloyd's algorithm</a>. </p>
+		<p>k_means.py functions available <a href = "https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/k_means.py"
+    target = "_self">here</a>. </p>
+
+		<code>
+			from k_means import *
+
+	    df = pd.DataFrame.from_csv('mcdonalds_menu.csv', header=0, index_col=0)
+	    data = df.as_matrix(columns = ['Calories', 'Total Fat', 'Saturated Fat', 'Trans Fat', 'Cholesterol', 'Sodium', 'Carbohydrates', 'Dietary Fiber', 'Sugars', 'Protein'])
+		</code>
+
+		<p>Plotting loss as a function of `k` clusters with <code>find_best_k(data, 20, 15)</code> suggests 7 clusters is optimal.</p>
+
+		<h5>Loss Plot</h5>
+		<img src="https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/mcdondals_elbow_loss.png" height="50%"/>
+
+		<code>
+			# RUNS THE ALGORITHM
+	    centroids = get_centroids(20, 7, data)
+	    closest = calc_closest(data, centroids)
+
+	    # PLOTTING CLUSTERS
+	    x_tsne = TSNE(learning_rate =100).fit_transform(data)
+	    plt.scatter(x_tsne[:,0], x_tsne[:,1], c = closest)
+
+	    # SHOWS CLUSTERS
+	    centroids_df = pd.DataFrame(centroids, columns = ['Calories', 'Total Fat', 'Saturated Fat', 'Trans Fat', 'Cholesterol', 'Sodium', 'Carbohydrates', 'Dietary Fiber', 'Sugars', 'Protein'])
+	    df['Centroid'] = closest
+		</code>
+
+		<h1>Results</h1>
+		<p>Example items in clusters (`Centroid`)</p>
+
+		<code>
+																														Serving Size  Calories  	Protein			Centroid
+			Item
+			McFlurry with Oreo Cookies (Small)                 10.1 oz (285 g)       510				12   					1
+			McFlurry with Oreo Cookies (Medium)                13.4 oz (381 g)       690   			15						4
+			McFlurry with Oreo Cookies (Snack)                  6.7 oz (190 g)       340   			8							1
+			McFlurry with Reese's Peanut Butter Cups (Medium)  14.2 oz (403 g)       810   			21						4
+			McFlurry with Reese's Peanut Butter Cups (Snack)    7.1 oz (202 g)       410 				10						1
+		</code>
+
+		<h5>t-SNE Plot</h5>
+		<img src="https://github.com/jherzberg/k_means_mcdonalds_nutrition/blob/master/mcdondalds_t_sne.png" height="50%"/>
+
+		<h4>Josh Herzberg</h4>
+
+
+
+
+
+	</body>
+</html>
