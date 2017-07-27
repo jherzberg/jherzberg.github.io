@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>mini NN</title>
+		<link href="_layouts/jekyll.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
 		<h1>PREDICTING POSITION FROM BATTING STATS WITH A NEURAL NETWORK</h1>
@@ -10,7 +11,7 @@
     target = "_self">Baseball-reference.com</a>. </p>
     <p>Players with less than 100 plate appearances were removed from the dataset. Pitchers and DHs were also removed. </p>
     <p>Using the toy neural network from <a href = "http://cs231n.github.io/neural-networks-case-study/"
-    target = "_self">CS231n at Stanford</a>. I tracked training accuracy for the
+    target = "_self">CS231n at Stanford</a>, I tracked training accuracy for the
 		most likely overall prediction and the top three most likely predictions.</p>
 		<p>Code can be found <a href = "https://github.com/jherzberg/batting_nn/blob/master/batting.py"
 			target = "_self">here</a> for 8 class classification. </p>
@@ -27,6 +28,7 @@
 		<h5>Training Loss (Blue) and Accuracy (Orange) Plot</h5>
 		<img src="https://github.com/jherzberg/jherzberg.github.io/mappos.png" height="50%"/>
 
+	</br>
 		<p>64.9% overall accuracy on test dataset. This is significant improvement over
 		the initial 8-class classification, but suggests that the groups are not
 		optimal or that grouping is not relevant to begin with. Further work should
