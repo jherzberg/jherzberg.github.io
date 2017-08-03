@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dog or Cat</title>
+		<link href="_layouts/jekyll.css" type="text/css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Is this a dog or a cat?</h1>
+			<h2>Intro</h2>
+		<p>What is this thing? <img src="pictures/dogorcat.jpg" height="200px"/> </p>
+		<p>I want to attempt two methods of discerning.</p>
+			<h3>Data</h3>
+		<p> First some comparison data. I used 5 pictures of dogs and 5 pictures of
+				cats. These pictures are compressed to 32px by 32px and to black and white.
+				This makes the image pre-processing far easier. However, they are still clearly
+				dogs and cats. </p>
+		<table>
+         <tr>
+            <td><img src="pictures/dogsandcats/cat.0.jpg" "32px"/></td>
+            <td><img src="pictures/dogsandcats/cat.1.jpg" "32px"/></td>
+						<td><img src="pictures/dogsandcats/cat.2.jpg" "32px"/></td>
+						<td><img src="pictures/dogsandcats/cat.3.jpg" "32px"/></td>
+						<td><img src="pictures/dogsandcats/cat.4.jpg" "32px"/></td>
+         </tr>
+				 <td><img src="pictures/dogsandcats/dog.0.jpg" "32px"/></td>
+				 <td><img src="pictures/dogsandcats/dog.1.jpg" "32px"/></td>
+				 <td><img src="pictures/dogsandcats/dog.2.jpg" "32px"/></td>
+				 <td><img src="pictures/dogsandcats/dog.3.jpg" "32px"/></td>
+				 <td><img src="pictures/dogsandcats/dog.4.jpg" "32px"/></td>
+			 </tr>
+      </table>
+		<p>I also compressed the dogcat image: </p>
+		<img src="pictures/dogsandcats/what.jpg" "32px"/>
+	</br>
+	</br>
+
+	<p>One import step is normalizing and centering the data by subtracting the
+		mean and dividing by the standard deviation. <code> ims </code> is the
+		matrix of the images in the "training" set and <code> what</code> is the
+		matrix of the image of the ... thing.</p>
+				<pre><code>ims = (ims - ims.mean()) / ims.std()
+what = (what - ims.mean()) / ims.std()</code></pre>
+
+	<h2>k Nearest Neighbors</h2>
+	<p>For the first method, the k Nearest Neighbors algorithm, I calculate the Euclidean distance of each unambiguos-species image
+		to the canine feline image.
+	</p>
+			<pre><code>dists = np.sum(np.sum(np.power((ims- what),2), axis=1), axis=1)
+			</code></pre>
+
+		<h3>Results</h3>
+		<p>I arbitralily chose <code>k=3</code> as the number of neighbors that get
+		to vote on what species the animal is. Tuning this hyperparameter can
+		provide greater accuracy, but I am only interested in classifying this one
+		image and so herein chose not to.</p>
+		<p>My voting system was such that the closest neighboring image decided the
+			species unless the other two votes both disagreed, in which case they
+			would overrule.</p>
+
+		<pre><code>sorts = np.argsort(dists)
+votes = []
+for i in range(3):
+    votes.append(classes[sorts[i]])
+if votes[1] == votes[2] and votes[1] != votes[0]:
+    win_class = votes[1]
+else:
+    win_class = votes[0]</code></pre>
+
+		<p>The result? </p>
+		<pre><code>print(win_class)</code></pre>
+		<code>dog</code>
+		</br>
+		</br>
+		</br>
+
+		<h2>Primary Component Analysis (PCA) </h2>
+			<p> For a second classification method, I still used the kNN algorithm,
+				but first performed PCA. The images began as <code>32*32=1024</code>
+				dimensional objects. PCA reduces that dimensionality to the <code>k</code>
+				most important dimensions. More precisely, those dimensions which explain
+				some arbitrary portion of the variance. I chose <code>k=3</code> for
+				consistency.</p>
+				<p> Most of the preprocessing remains the same for PCA and I can use
+					numpy's <code>linalg.svd</code> calculation to compute unitary matrix,
+					which is then sliced to the number of dimensions I want to reduce to.
+					Then I compute the dot product of the reduced unitary matrix and
+					image data to return the image data projected onto three dimensions.
+				</p>
+
+			<pre><code>U_red = U[:, :3]
+ims_red = np.dot(ims_flat, U_red)
+</code></pre>
+
+
+			<h3>Results</h3>
+			<p> I then recompare the distances to from the dogcat to the training data.
+				One note, PCA was performed on all the data together and only afterwards
+				was the mystery animal's image separated from the comparison data. I used
+				the same k nearest neighbors with <code>k=3</code> and voting rules
+				above. Again, the the images voted that the thing is a dog. </p>
+				<p>Neither of these algorithms is particulary good at classifying images,
+					but the exercises were interesting to perform nonetheless. It turns out that the thing is called Atchoum and is a cat. It even has
+					a website called <a href = "https://http://www.atchoumthecat.com/"
+			    target = "_self">www.atchoumthecat.com</a>. It has hypertricosis which
+				makes it hairy and thick-clawed.</p>
+
+
+
+
+		</body>
+</html>

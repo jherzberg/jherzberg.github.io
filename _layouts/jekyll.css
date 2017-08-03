@@ -105,6 +105,11 @@ img {
   max-width:100%;
 }
 
+.floated_img
+{
+    float: left;
+}
+
 header {
   width:270px;
   float:left;
