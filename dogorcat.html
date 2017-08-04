@@ -83,7 +83,7 @@ else:
 				some arbitrary portion of the variance. I chose <code>k=3</code> for
 				consistency.</p>
 				<p> Most of the preprocessing remains the same for PCA and I can use
-					numpy's <code>linalg.svd</code> calculation to compute unitary matrix,
+					numpy's <code>linalg.svd</code> calculation to compute the unitary matrix,
 					which is then sliced to the number of dimensions I want to reduce to.
 					Then I compute the dot product of the reduced unitary matrix and
 					image data to return the image data projected onto three dimensions.
