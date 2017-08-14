@@ -103,6 +103,7 @@ th {
 
 img {
   max-width:100%;
+  height:auto;
 }
 
 .floated_img
